@@ -6,7 +6,7 @@ def get_rquirements(file_path:str)->list(str):
     
     requirements =[]
     
-    with open file_path as file_obj:
+    with open (file_path) as file_obj:
         requirements=file_obj.readline()
         requirements=[req.strip() for req in requirements]
         
