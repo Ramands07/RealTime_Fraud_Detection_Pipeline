@@ -6,8 +6,15 @@ scikit-learn
 imbalanced-learn
 MLflow
 Docker
-FastAPI
-Uvicorn
+fastAPI
+uvicorn
 Joblib
 catboost
 Xgboost
+dill
+
+
+
+
+
+#-e . 
