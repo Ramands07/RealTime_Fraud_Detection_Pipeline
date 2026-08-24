@@ -219,3 +219,25 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+# Datasets
+data/raw/
+notebook/data/
+*.csv
+*.parquet
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# Model artifacts
+artifacts/
+models/
+*.pkl
+
+# Jupyter
+.ipynb_checkpoints/
