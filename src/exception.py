@@ -7,9 +7,9 @@ import logging
 
 def error_message_detail(error,error_detail:sys):
     _,_,exc_tb=error_detail.exc_info()
-    file_name=exc_tb.tb_frame.f_code.co_filename
+    file_name = exc_tb.tb_frame.f_code.co_filename if exc_tb is not None else "<unknown>"
     error_message ="Error occured in python script name[{0}] line number [{1}] error messsage [{2}]".format(
-     file_name,exc_tb.tb_lineno,str(error))
+     file_name,exc_tb.tb_lineno if exc_tb is not None else "<unknown>",str(error))
      
     return error_message
 

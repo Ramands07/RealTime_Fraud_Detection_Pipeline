@@ -2,6 +2,17 @@
 
 Steps followed in creating this project
 
+1. Created the repository
+2. created the environment
+3. done the setups which includes setup.py (connection file), source as src in this created - logger.py to get logs , exception.py to handle exception and utility as utlis.py
+4. 
+
+
+
+
+
+
+
 Realtime_fraud_detection/
 │
 ├── data/

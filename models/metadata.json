@@ -1,0 +1,73 @@
+{
+  "model_name": "histgb_smote_0.05",
+  "created_utc": "2026-08-24T13:18:24.842287+00:00",
+  "n_features": 31,
+  "features": [
+    "V1",
+    "V2",
+    "V3",
+    "V4",
+    "V5",
+    "V6",
+    "V7",
+    "V8",
+    "V9",
+    "V10",
+    "V11",
+    "V12",
+    "V13",
+    "V14",
+    "V15",
+    "V16",
+    "V17",
+    "V18",
+    "V19",
+    "V20",
+    "V21",
+    "V22",
+    "V23",
+    "V24",
+    "V25",
+    "V26",
+    "V27",
+    "V28",
+    "log_Amount",
+    "hour_sin",
+    "hour_cos"
+  ],
+  "target": "Class",
+  "selection_rationale": [
+    "PR-AUC leader is random_forest_balanced at 0.7992 (95% CI 0.7132-0.8750)",
+    "Paired bootstrap: 6 candidates are statistically indistinguishable from the leader (difference CI contains zero): random_forest_balanced, histgb_smote_0.01, histgb_undersample_0.05, histgb_smote_0.05, histgb_adasyn_0.05, logistic_regression_balanced",
+    "Tie broken on calibration (Brier), because the operating threshold is chosen from a cost model that requires trustworthy probabilities.",
+    "histgb_smote_0.05 has the lowest Brier at 0.000444 (vs 0.002730 for the PR-AUC leader) \u2014 a 6.1x improvement in probability quality at no significant PR-AUC cost."
+  ],
+  "test_metrics": {
+    "pr_auc": 0.7947236954845922,
+    "pr_auc_ci_95": [
+      0.7031726762693251,
+      0.8721267449639707
+    ],
+    "roc_auc": 0.9800370934881804,
+    "brier": 0.0004442552675270995,
+    "precision@100": 0.59,
+    "recall@100": 0.7972972972972973,
+    "base_rate": 0.0013040566735981391
+  },
+  "operating_point": {
+    "threshold": 0.01428513164739732,
+    "alerts": 92,
+    "precision": 0.6413043478260869,
+    "recall": 0.7972972972972973,
+    "true_positives": 59,
+    "false_positives": 33,
+    "false_negatives": 15
+  },
+  "business_impact": {
+    "cost_per_review": 3.0,
+    "cost_doing_nothing": 7727.67,
+    "cost_at_chosen_threshold": 1864.7099999999998,
+    "absolute_saving": 5862.96,
+    "pct_loss_reduction": 75.86969940486588
+  }
+}

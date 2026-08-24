@@ -26,6 +26,15 @@ def save_object(file_path, obj):
 
     except Exception as e:
         raise CustomException(e, sys)
+
+def save_dataframe(dataframe: pd.DataFrame, file_path):
+    try:
+        dir_path = os.path.dirname(file_path)
+        os.makedirs(dir_path, exist_ok=True)
+        dataframe.to_csv(file_path, index=False)
+
+    except Exception as e:
+        raise CustomException(e, sys)
     
 def evaluate_models(X_train, y_train,X_test,y_test,models,param):
     try:
