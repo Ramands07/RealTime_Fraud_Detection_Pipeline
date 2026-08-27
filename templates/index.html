@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fraud Detection</title>
+  <style>
+    :root { --bg:#0f1419; --panel:#1a2028; --line:#2a323d; --txt:#e6edf3;
+            --muted:#8b98a5; --accent:#3fb950; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--txt);
+           font-family:ui-monospace,SFMono-Regular,Menlo,monospace; padding:2rem 1rem; }
+    .wrap { max-width:900px; margin:0 auto; }
+    h1 { font-size:1.4rem; margin:0 0 .3rem; }
+    .sub { color:var(--muted); font-size:.85rem; margin-bottom:1.5rem; }
+    .meta { background:var(--panel); border:1px solid var(--line); border-radius:6px;
+            padding:.75rem 1rem; margin-bottom:1.5rem; font-size:.8rem; color:var(--muted); }
+    .meta b { color:var(--txt); }
+    form { background:var(--panel); border:1px solid var(--line);
+           border-radius:6px; padding:1.5rem; }
+    fieldset { border:1px solid var(--line); border-radius:4px;
+               padding:1rem; margin:0 0 1.25rem; }
+    legend { color:var(--muted); font-size:.75rem; text-transform:uppercase;
+             letter-spacing:.05em; padding:0 .4rem; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:.6rem; }
+    .field { display:flex; flex-direction:column; }
+    label { font-size:.7rem; color:var(--muted); margin-bottom:.2rem; }
+    input { background:var(--bg); border:1px solid var(--line); border-radius:4px;
+            color:var(--txt); padding:.45rem .5rem; font-family:inherit; font-size:.85rem; }
+    input:focus { outline:none; border-color:var(--accent); }
+    button { background:var(--accent); color:#0d1117; border:none; border-radius:4px;
+             padding:.7rem 1.6rem; font-family:inherit; font-weight:600;
+             font-size:.9rem; cursor:pointer; }
+    button:hover { opacity:.9; }
+    .hint { font-size:.75rem; color:var(--muted); margin-top:.8rem; }
+    a { color:var(--accent); }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Real-Time Fraud Detection</h1>
+  <div class="sub">Score a credit card transaction for fraud risk</div>
+
+  <div class="meta">
+    model <b>{{ model_name }}</b> &nbsp;·&nbsp; threshold <b>{{ threshold }}</b>
+    &nbsp;·&nbsp; <a href="/docs">API docs</a>
+    &nbsp;·&nbsp; <a href="/model-info">model info</a>
+  </div>
+
+  <form action="/predict-form" method="post">
+    <fieldset>
+      <legend>Transaction</legend>
+      <div class="grid">
+        <div class="field">
+          <label for="Time">Time (sec)</label>
+          <input type="number" step="any" id="Time" name="Time" value="145000">
+        </div>
+        <div class="field">
+          <label for="Amount">Amount</label>
+          <input type="number" step="any" id="Amount" name="Amount" value="149.62">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>PCA components V1–V28</legend>
+      <div class="grid">
+        {% for i in range(1, 29) %}
+        <div class="field">
+          <label for="V{{ i }}">V{{ i }}</label>
+          <input type="number" step="any" id="V{{ i }}" name="V{{ i }}" value="0.0">
+        </div>
+        {% endfor %}
+      </div>
+    </fieldset>
+
+    <button type="submit">Score transaction</button>
+    <div class="hint">
+      Blank V-fields default to 0.0. These are anonymised PCA components — the
+      dataset publishers removed the original merchant and location fields, so
+      they carry no readable meaning.
+    </div>
+  </form>
+</div>
+</body>
+</html>

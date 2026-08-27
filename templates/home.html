@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Result — Fraud Detection</title>
+  <style>
+    :root { --bg:#0f1419; --panel:#1a2028; --line:#2a323d; --txt:#e6edf3;
+            --muted:#8b98a5; --approve:#3fb950; --review:#d29922; --decline:#f85149; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--txt);
+           font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+           padding:2rem 1rem; }
+    .wrap { max-width:640px; margin:0 auto; }
+    h1 { font-size:1.4rem; margin:0 0 1.5rem; }
+    .card { background:var(--panel); border:1px solid var(--line);
+            border-radius:6px; padding:2rem; text-align:center; margin-bottom:1.25rem; }
+    .verdict { font-size:2.2rem; font-weight:700; letter-spacing:.05em;
+               text-transform:uppercase; margin-bottom:.4rem; }
+    .approve { color:var(--approve); }
+    .review  { color:var(--review); }
+    .decline { color:var(--decline); }
+    .prob { font-size:1.1rem; color:var(--muted); }
+    .bar { height:6px; background:var(--line); border-radius:3px;
+           overflow:hidden; margin:1.5rem 0 .5rem; }
+    .bar-fill { height:100%; border-radius:3px; }
+    .bar-label { font-size:.7rem; color:var(--muted); display:flex;
+                 justify-content:space-between; }
+    table { width:100%; border-collapse:collapse; background:var(--panel);
+            border:1px solid var(--line); border-radius:6px; overflow:hidden;
+            font-size:.85rem; }
+    td { padding:.7rem 1rem; border-bottom:1px solid var(--line); }
+    tr:last-child td { border-bottom:none; }
+    td:first-child { color:var(--muted); width:45%; }
+    .note { font-size:.75rem; color:var(--muted); margin-top:1.25rem;
+            line-height:1.6; }
+    a { color:var(--approve); }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Scoring result</h1>
+
+  <div class="card">
+    <div class="verdict {{ decision }}">{{ decision }}</div>
+    <div class="prob">fraud probability {{ probability_pct }}%</div>
+
+    <div class="bar">
+      {% set pct = probability_pct | float %}
+      <div class="bar-fill {{ decision }}"
+           style="width: {{ [pct * 4, 100] | min }}%;
+                  background: {% if decision == 'approve' %}#3fb950
+                              {% elif decision == 'review' %}#d29922
+                              {% else %}#f85149{% endif %};"></div>
+    </div>
+    <div class="bar-label">
+      <span>0%</span><span>25%+</span>
+    </div>
+  </div>
+
+  <table>
+    <tr><td>Fraud probability</td><td>{{ probability }}</td></tr>
+    <tr><td>Decision threshold</td><td>{{ threshold }}</td></tr>
+    <tr><td>Transaction amount</td><td>{{ amount }}</td></tr>
+    <tr><td>Model</td><td>{{ model_name }}</td></tr>
+  </table>
+
+  <div class="note">
+    The threshold is <b>{{ threshold }}</b>, not 0.5. It was chosen by minimising
+    expected cost — a missed fraud costs the transaction amount, a false alarm
+    costs a fixed review fee. At the default 0.5 this model would flag almost
+    nothing.
+    <br><br>
+    <a href="/">← Score another transaction</a>
+  </div>
+</div>
+</body>
+</html>
